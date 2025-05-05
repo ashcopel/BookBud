@@ -55,25 +55,29 @@ app.post("/create", function (req, res) {
     async function run() {
         try {
             await client.connect()
-            database = client.db("MGMT460")
-            table    = database.collection("BookBud")
-            record   = {
+            const database = client.db("MGMT460")
+            const table    = database.collection("BookBud")
+            const record   = {
                 userid      : parseInt(req.body.userid),
                 bookname    : req.body.bookname,
                 bookrating  : parseInt(req.body.bookrating),
                 bookcomment : req.body.bookcomment,
-                startdate   : new Date(),
-                enddate     : new Date(),
+                startdate   : new Date(req.body.startdate),
+                enddate     : new Date(req.body.enddate),
                 bookgenre   : req.body.bookgenre
             }
-            result = await table.insertOne(record)
-//            res.send(JSON.stringify(req.body)) // echo body
+            const result = await table.insertOne(record)
+            res.status(201).json({ message: "Record created", id: result.insertedId })
+        } catch (err) {
+            console.error("Error in /create:", err)
+            res.status(500).send("Failed to create entry")
         } finally {
             await client.close()
         }
     }
     run()
 })
+
 
 app.delete("/delete/:userid", function(req, res) {
     async function run() {

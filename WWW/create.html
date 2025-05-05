@@ -6,9 +6,9 @@
             function main() {
                 btn.addEventListener("click", sendData);
             }
-
-            function sendData() {
-                data = {
+    
+            async function sendData() {
+                const data = {
                     userid     : userid.value,
                     bookname   : bookname.value,
                     bookrating : bookrating.value,
@@ -17,16 +17,29 @@
                     startdate  : startdate.value,
                     enddate    : enddate.value
                 };
-                url = "http://localhost:4444/create";
-
-                fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                });
-                location.href = "retrieve.html"; 
+                const url = "http://localhost:4444/create";
+    
+                try {
+                    const res = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(data)
+                    });
+    
+                    if (res.ok) {
+                        alert("Book entry created successfully!");
+                        location.href = "retrieve.html";
+                    } else {
+                        const errMsg = await res.text();
+                        alert("Failed to create entry: " + errMsg);
+                        console.error("Server responded with:", errMsg);
+                    }
+                } catch (err) {
+                    alert("Error: " + err.message);
+                    console.error("Fetch error:", err);
+                }
             }
         </script>
         <title>Create a New Book Entry</title>
