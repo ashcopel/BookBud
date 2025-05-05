@@ -1,32 +1,35 @@
 <!doctype html>
 <html>
     <head>
-    <script>
-        window.addEventListener("load", main)
-        function main() {
-            btn.addEventListener("click", sendData)
-        }
-
-        function sendData() {
-            data={
-                userid     : userid.value,
-                bookname   : bookname.value,
-                bookrating : bookrating.value,
-                bookcomment: bookcomment.value
+        <script>
+            window.addEventListener("load", main);
+            function main() {
+                btn.addEventListener("click", sendData);
             }
-            url = "http://localhost:4444/create"
 
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            })
-            location.href="retrieve.html"
-        }
-    </script>
-        <title> Create a New Book Entry</title>
+            function sendData() {
+                data = {
+                    userid     : userid.value,
+                    bookname   : bookname.value,
+                    bookrating : bookrating.value,
+                    bookcomment: bookcomment.value,
+                    bookgenre  : bookgenre.value,
+                    startdate  : startdate.value,
+                    enddate    : enddate.value
+                };
+                url = "http://localhost:4444/create";
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+                location.href = "retrieve.html"; 
+            }
+        </script>
+        <title>Create a New Book Entry</title>
         <link href="styles/style1.css" rel="stylesheet">
         <link href="styles/style2a.css" rel="stylesheet">
     </head>
@@ -42,20 +45,23 @@
         </div>
         <div class="meat">
             <h1 class="myH1">Create a Book Entry</h1>
-            <img class="myIMG" src="pics/Book2.jpeg">
-            <h2 class="myH21" style="text-align: center;"> Create a new entry here! </h2>
-            <form style="text-align: center;">
-                <input type="text" placeholder="Author" required class="myP1"><br> <br>
-                <input type="text" placeholder="Book Title" required class="myP1"><br> <br>
-                <textarea placeholder="Description" class="myP1"></textarea> <br><br>
-                <p class="myP">Rating:</p><select class="myP1">
+            <img class="myIMG" src="pics/Book2.jpeg" alt="Book Image">
+            <h2 class="myH21" style="text-align: center;">Create a new entry here!</h2>
+
+            <form id="frmCreate" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                <input type="number" id="userid" placeholder="User ID" required class="myP1"><br><br>
+                <input type="text" id="bookname" placeholder="Book Title" required class="myP1"><br><br>
+                <textarea id="bookcomment" placeholder="Description" class="myP1" rows="5" cols="40"></textarea><br><br>
+                <p class="myP">Rating:</p>
+                <select id="bookrating" class="myP1">
                     <option value="5">5 Stars</option>
                     <option value="4">4 Stars</option>
                     <option value="3">3 Stars</option>
                     <option value="2">2 Stars</option>
                     <option value="1">1 Star</option>
-                </select><br>
-                <p class="myP">Genre:</p><select class="myP1">
+                </select><br><br>
+                <p class="myP">Genre:</p>
+                <select id="bookgenre" class="myP1">
                     <option value="Fiction">Fiction</option>
                     <option value="Non-Fiction">Non-Fiction</option>
                     <option value="Mystery">Mystery</option>
@@ -63,10 +69,12 @@
                     <option value="Fantasy">Fantasy</option>
                     <option value="Sci-Fi">Sci-Fi</option>
                     <option value="Horror">Horror</option>
-                </select><br>
-                <p class="myP">Start Date:</p><input type="date" class="myP1"><br>
-                <p class="myP">End Date:</p><input type="date" class="myP1"><br><br>
-                <input type="submit" value="Add Entry" class="myP1"><br>
+                </select><br><br>
+                <p class="myP">Start Date:</p>
+                <input type="date" id="startdate" class="myP1"><br><br>
+                <p class="myP">End Date:</p>
+                <input type="date" id="enddate" class="myP1"><br><br>
+                <input type="button" id="btn" value="Add Entry" style="background-color: cadetblue;color: white;border: none;padding: 10px 20px;" class="myP1"><br>
             </form>
         </div>
     </body>

@@ -1,6 +1,16 @@
 <!doctype html>
 <html>
     <head>
+        <script language="javascript">
+            window.addEventListener("load", readAll);
+            function readAll() {
+                fetch("http://localhost:4444/retrieve")
+                .then(response => response.json())
+                .then(function(data) {
+                    data.forEach(row => deleteList.innerHTML += `<tr><td><a href=delete-one.html?userid=${row.userid}>${row.userid}</a></td><td>${row.bookname}</td><td>${row.bookrating}</td><td>${row.bookcomment}</td><td>${row.bookdate}</td></tr>`);
+                });
+            }
+        </script>
         <title> Delete a Book Entry</title>
         <link href="styles/style1.css" rel="stylesheet">
         <link href="styles/style2a.css" rel="stylesheet">
@@ -13,14 +23,23 @@
                 <li><a href="update.html" class="myA"> Update Entry </a></li>
                 <li><a href="homepage.html" class="myA"> Home </a></li>
                 <li><a href="aboutcreator.html" class="myA"> About Creator </a></li>
-                </ul> 
+            </ul> 
         </div>
         <div class="meat">
             <h1 class="myH1"> Delete a Book Entry </h1>
             <img class="myIMG" src="pics/Book3.jpeg">
-            <h2 class="myH2"> Description </h2>
-            <p class="myP"> This is where a user will be able to delete an entry.<br>
-             This will show once the Database is implemented.</p>
+            <h2 class="myH2"> Entries List for Deletion </h2>
+            <table id="deleteList" style="margin: 20px auto; width: 80%; border-collapse: collapse; text-align: center; background-color: white; font-family: Arial, Helvetica, sans-serif;">
+                <tr style="background-color: lightgray;">
+                    <th style="padding: 10px; border: 1px solid #ddd; font-family: Arial, Helvetica, sans-serif; color: cadetblue;">ID</th>
+                    <th style="padding: 10px; border: 1px solid #ddd; font-family: Arial, Helvetica, sans-serif; color: cadetblue;">BOOK NAME</th>
+                    <th style="padding: 10px; border: 1px solid #ddd; font-family: Arial, Helvetica, sans-serif; color: cadetblue;">RATING</th>
+                    <th style="padding: 10px; border: 1px solid #ddd; font-family: Arial, Helvetica, sans-serif; color: cadetblue;">DETAILS</th>
+                    <th style="padding: 10px; border: 1px solid #ddd; font-family: Arial, Helvetica, sans-serif; color: cadetblue;">DATE ADDED</th>
+                </tr>
+                <!-- Dynamic data will be inserted here by JavaScript -->
+            </table>
+            
         </div>
     </body>
 </html>

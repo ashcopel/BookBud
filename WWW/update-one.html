@@ -1,66 +1,90 @@
 <html>
 <head>
-<script language="javascript">
+<script>
     window.addEventListener("load", main)
+    
     function main() {
-        readOne()
-        btn.addEventListener("click", writeOne)
+        readOne();
+        btn.addEventListener("click", writeOne);
     }
+
     function readOne() {
-        params = (new URL(document.location)).searchParams
-        id = params.get("guestid")
-        fetch("http://localhost:7777/retrieve-one/"+id)
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("userid");
+
+        fetch("http://localhost:4444/retrieve-one/" + id)
         .then(response => response.json())
         .then(function(data) {
-            guestid.value = data.guestid
-            guestname.value = data.guestname
-            guestnumber.value = data.guestnumber
-            guestcomment.value = data.guestcomment
-        })
+            userid.value      = data.userid;
+            title.value       = data.bookname;
+            description.value = data.bookcomment;
+            rating.value      = data.bookrating;
+            genre.value       = data.bookgenre;
+            startdate.value   = data.startdate?.substring(0, 10);
+            enddate.value     = data.enddate?.substring(0, 10);
+        });
     }
+
     function writeOne() {
-        data = {
-            guestid      : guestid.value,
-            guestname    : guestname.value,
-            guestnumber  : guestnumber.value,
-            guestcomment : guestcomment.value
-        }    
-        fetch("http://localhost:7777/update", { 
+        const data = {
+            userid      : parseInt(userid.value),
+            bookname    : title.value,
+            bookrating  : parseInt(rating.value),
+            bookcomment : description.value,
+            bookgenre   : genre.value,
+            startdate   : startdate.value,
+            enddate     : enddate.value
+        };
+
+        fetch("http://localhost:4444/update", {
             method  : 'PUT',
-            headers : { "Content-Type": "application/json"},
+            headers : { "Content-Type": "application/json" },
             body    : JSON.stringify(data)
         })
-        location.href="retrieve.html"
+        .then(() => {
+            location.href = "retrieve.html";
+        });
     }
 </script>
 <link href="styles/style1.css" rel="stylesheet">
-
 </head>
+
 <body style="background-color: lavenderblush;">
-<h1 class="myH1"> Update your Entry! </h1>
-<form style="text-align: center;">
-    <input type="text" placeholder="Author" required class="myP1"><br> <br>
-    <input type="text" placeholder="Book Title" required class="myP1"><br> <br>
-    <textarea placeholder="Description" class="myP1"></textarea> <br><br>
-    <p class="myP">Rating:</p><select class="myP1">
-        <option value="5">5 Stars</option>
-        <option value="4">4 Stars</option>
-        <option value="3">3 Stars</option>
-        <option value="2">2 Stars</option>
-        <option value="1">1 Star</option>
-    </select><br>
-    <p class="myP">Genre:</p><select class="myP1">
-        <option value="Fiction">Fiction</option>
-        <option value="Non-Fiction">Non-Fiction</option>
-        <option value="Mystery">Mystery</option>
-        <option value="Romance">Romance</option>
-        <option value="Fantasy">Fantasy</option>
-        <option value="Sci-Fi">Sci-Fi</option>
-        <option value="Horror">Horror</option>
-    </select><br>
-    <p class="myP">Start Date:</p><input type="date" class="myP1"><br>
-    <p class="myP">End Date:</p><input type="date" class="myP1"><br><br>
-    <input type="submit" value="Update Entry" class="myP1"><br>
-</form>
+    <h1 class="myH1">Update your Entry!</h1>
+    <form style="text-align: center;">
+        <input id="userid" type="hidden">
+
+        <input id="title" type="text" placeholder="Book Title" required class="myP1"><br><br>
+        <textarea id="description" placeholder="Comments" class="myP1" required></textarea><br><br>
+
+        <p class="myP">Rating:</p>
+        <select id="rating" class="myP1">
+            <option value="5">5 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="3">3 Stars</option>
+            <option value="2">2 Stars</option>
+            <option value="1">1 Star</option>
+        </select><br>
+
+        <p class="myP">Genre:</p>
+        <select id="genre" class="myP1">
+            <option value="Fiction">Fiction</option>
+            <option value="Non-Fiction">Non-Fiction</option>
+            <option value="Mystery">Mystery</option>
+            <option value="Romance">Romance</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Sci-Fi">Sci-Fi</option>
+            <option value="Horror">Horror</option>
+        </select><br>
+
+        <p class="myP">Start Date:</p>
+        <input id="startdate" type="date" class="myP1"><br>
+
+        <p class="myP">End Date:</p>
+        <input id="enddate" type="date" class="myP1"><br><br>
+
+        <input type="button" id="btn" value="Update Entry" class="myP1"><br>
+    </form>
 </body>
 </html>
+

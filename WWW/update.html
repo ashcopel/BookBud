@@ -1,26 +1,56 @@
 <!doctype html>
 <html>
-    <head>
-        <title> update a Book Entry</title>
-        <link href="styles/style1.css" rel="stylesheet">
-        <link href="styles/style2a.css" rel="stylesheet">
-    </head>
-    <body style="background-color:lavenderblush;">
-        <div class="main" style="background-color: cadetblue;"> 
-            <ul style="text-align: center;">
-                <li><a href="create.html" class="myA"> Create Entry</a></li>
-                <li><a href="retrieve.html" class="myA"> Retrieve Entry </a></li>
-                <li><a href="homepage.html" class="myA"> Home </a></li>
-                <li><a href="delete.html" class="myA"> Delete Entry </a></li>
-                <li><a href="aboutcreator.html" class="myA"> About Creator </a></li>
-                </ul> 
-        </div>
-        <div class="meat">
-            <h1 class="myH1"> Update a Book Entry </h1>
-            <img class="myIMG" src="pics/Book5.jpg">
-            <h2 class="myH2"> Description </h2>
-            <p class="myP"> This is where a user will be able to add to or change part of a previous entry.<br>
-             This will show once the Database is implemented.</p>
-        </div>
-    </body>
+<head>
+    <title>Update a Book Entry</title>
+    <link href="styles/style1.css" rel="stylesheet">
+    <link href="styles/style2a.css" rel="stylesheet">
+    <script language="javascript">
+        window.addEventListener("load", readAll);
+        
+        function readAll() {
+            const updateList = document.getElementById("updateList");
+            fetch("http://localhost:4444/retrieve")  
+            .then(response => response.json())
+            .then(function(data) {
+                data.forEach(row => {
+                    updateList.innerHTML += 
+                    `<tr>
+                        <td><a href="update-one.html?userid=${row.userid}">${row.userid}</a></td>
+                        <td>${row.bookname}</td>
+                        <td>${row.bookrating}</td>
+                        <td>${row.bookcomment}</td>
+                        <td>${row.enddate}</td>
+                    </tr>`;
+                });
+            });
+        }
+    </script>
+</head>
+<body style="background-color: lavenderblush; font-family: Arial, Helvetica, sans-serif; color: darkslateblue;">
+    <div class="main" style="background-color: cadetblue;"> 
+        <ul style="text-align: center;">
+            <li><a href="create.html" class="myA"> Create Entry</a></li>
+            <li><a href="retrieve.html" class="myA"> Retrieve Entry </a></li>
+            <li><a href="homepage.html" class="myA"> Home </a></li>
+            <li><a href="delete.html" class="myA"> Delete Entry </a></li>
+            <li><a href="aboutcreator.html" class="myA"> About Creator </a></li>
+        </ul> 
+    </div>
+    <div style="text-align: center; padding: 20px;">
+        <h1 style="color: darkslategrey;">Update a Book Entry</h1>
+        <img src="pics/Book5.jpg" style="display: block; margin: 20px auto; width: 300px;">
+
+        <table id="updateList" style="margin: 20px auto; width: 80%; border-collapse: collapse; text-align: center; background-color: white; font-family: Arial, Helvetica, sans-serif;">
+            <tr style="background-color: lightgray;">
+                <th style="padding: 10px; border: 1px solid #ddd; color: cadetblue;">ID</th>
+                <th style="padding: 10px; border: 1px solid #ddd; color: cadetblue;">BOOK NAME</th>
+                <th style="padding: 10px; border: 1px solid #ddd; color: cadetblue;">RATING</th>
+                <th style="padding: 10px; border: 1px solid #ddd; color: cadetblue;">DETAILS</th>
+                <th style="padding: 10px; border: 1px solid #ddd; color: cadetblue;">DATE ADDED</th>
+            </tr>
+            <!-- Dynamic data will be inserted here by JavaScript -->
+        </table>
+    </div>
+</body>
 </html>
+
