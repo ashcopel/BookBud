@@ -1,0 +1,10 @@
+.myIMG{width: 400px;display: block;margin: auto;}
+.myH1 {font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 26pt;text-align:center;color: darkslategray;}
+.myP {font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size:14pt;text-align: center;}
+.myP1 {font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size:14pt;}
+.myH2 {font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 22pt;color: darkslategray; text-align:center;}
+.myH21 {font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 22pt;color: darkslategray;}
+.myA {font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;color:black;font-size:14pt;}
+.myTextFont{font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size: 14pt;}
+.myBlueBackground {background:lightblue;}
+.myTextWidth {width: 25%;}

@@ -1,0 +1,15 @@
+<html>
+<head>
+<script language="javascript">
+    window.addEventListener("load", deleteOne)
+    function deleteOne() {
+        params = (new URL(document.location)).searchParams
+        guestid = params.get("userid")
+        fetch("http://localhost:4444/delete/"+guestid, {method:"DELETE"})
+        location.href="retrieve.html"
+    }
+</script>
+</head>
+<body>
+</body>
+</html>
