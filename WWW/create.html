@@ -4,6 +4,7 @@
         <script>
             window.addEventListener("load", main);
             function main() {
+                let btn = document.getElementById("btn");
                 btn.addEventListener("click", sendData);
             }
     
@@ -18,7 +19,7 @@
                     enddate    : enddate.value
                 };
                 const url = "http://localhost:4444/create";
-    
+
                 try {
                     const res = await fetch(url, {
                         method: 'POST',
@@ -27,17 +28,17 @@
                         },
                         body: JSON.stringify(data)
                     });
-    
+
                     if (res.ok) {
                         alert("Book entry created successfully!");
-                        location.href = "retrieve.html";
+                        location.href = "retrieve.html"; // Redirect after success
                     } else {
-                        const errMsg = await res.text();
+                        const errMsg = await res.text(); // Fetch error message from server
                         alert("Failed to create entry: " + errMsg);
                         console.error("Server responded with:", errMsg);
                     }
                 } catch (err) {
-                    alert("Error: " + err.message);
+                    alert("Error: " + err.message); // Catch and alert any network errors
                     console.error("Fetch error:", err);
                 }
             }
