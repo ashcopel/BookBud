@@ -7,7 +7,7 @@
                 fetch("http://localhost:4444/retrieve")
                 .then(response => response.json())
                 .then(function(data) {
-                    data.forEach(row => deleteList.innerHTML += `<tr><td><a href=delete-one.html?userid=${row.userid}>${row.userid}</a></td><td>${row.bookname}</td><td>${row.bookrating}</td><td>${row.bookcomment}</td><td>${row.bookdate}</td></tr>`);
+                    data.forEach(row => deleteList.innerHTML += `<tr><td><a href=delete-one.html?userid=${row.userid}>${row.userid}</a></td><td>${row.bookname}</td><td>${row.bookrating}</td><td>${row.bookcomment}</td><td>${row.startdate}</td><td>${row.enddate}</td></tr>`);
                 });
             }
         </script>
@@ -35,7 +35,8 @@
                     <th style="padding: 10px; border: 1px solid #ddd; font-family: Arial, Helvetica, sans-serif; color: cadetblue;">BOOK NAME</th>
                     <th style="padding: 10px; border: 1px solid #ddd; font-family: Arial, Helvetica, sans-serif; color: cadetblue;">RATING</th>
                     <th style="padding: 10px; border: 1px solid #ddd; font-family: Arial, Helvetica, sans-serif; color: cadetblue;">DETAILS</th>
-                    <th style="padding: 10px; border: 1px solid #ddd; font-family: Arial, Helvetica, sans-serif; color: cadetblue;">DATE ADDED</th>
+                    <th style="padding: 10px; border: 1px solid #ddd; font-family: Arial, Helvetica, sans-serif; color: cadetblue;">START DATE</th>
+                    <th style="padding: 10px; border: 1px solid #ddd; font-family: Arial, Helvetica, sans-serif; color: cadetblue;">END DATE</th>
                 </tr>
                 <!-- Dynamic data will be inserted here by JavaScript -->
             </table>
